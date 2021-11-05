@@ -7,3 +7,11 @@
 
 ## How to launch?
 Go to repository folder and double-click on `main.py` file
+
+## Ideas for improvement
+1. "Restart game" button
+2. Statistics (number of wins/draws/defeats)
+3. Change game difficulty (easy/normal/hard)
+4. Resize/fullscreen window
+5. Dark color scheme
+6. 2-players game

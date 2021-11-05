@@ -30,7 +30,7 @@ class Cell(object):
     def draw(self, mouse_x, mouse_y, game_over_text):
         """ Draw Cell """
 
-        # 1. Draw Text if
+        # 1. Draw text if there is a text
         if self.text:
             arcade.draw_text(text=self.text, start_x=self.center_x, start_y=self.center_y, color=arcade.color.BLACK, font_size=76, anchor_x='center', anchor_y='center')
 

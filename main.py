@@ -44,15 +44,15 @@ class App(arcade.Window):
 
         # 3. Draw cells
         # Draw border
-        arcade.draw_rectangle_outline(center_x=constants.WIDTH/2, center_y=constants.HEIGHT/2, width=constants.WIDTH, height=constants.HEIGHT, color=constants.BORDER_COLOR, border_width=8)
+        arcade.draw_rectangle_outline(center_x=constants.WIDTH/2, center_y=constants.HEIGHT/2, width=constants.WIDTH, height=constants.HEIGHT, color=arcade.color.BLACK, border_width=8)
 
         # Draw vertical lines
-        arcade.draw_line(start_x=constants.WIDTH/3, start_y=0, end_x=constants.WIDTH/3, end_y=constants.HEIGHT, color=constants.BORDER_COLOR, line_width=4)
-        arcade.draw_line(start_x=constants.WIDTH*2/3, start_y=0, end_x=constants.WIDTH*2/3, end_y=constants.HEIGHT, color=constants.BORDER_COLOR, line_width=4)
+        arcade.draw_line(start_x=constants.WIDTH/3, start_y=0, end_x=constants.WIDTH/3, end_y=constants.HEIGHT, color=arcade.color.BLACK, line_width=4)
+        arcade.draw_line(start_x=constants.WIDTH*2/3, start_y=0, end_x=constants.WIDTH*2/3, end_y=constants.HEIGHT, color=arcade.color.BLACK, line_width=4)
 
         # Draw horizontal lines
-        arcade.draw_line(start_x=0, start_y=constants.HEIGHT/3, end_x=constants.WIDTH, end_y=constants.HEIGHT/3, color=constants.BORDER_COLOR, line_width=4)
-        arcade.draw_line(start_x=0, start_y=constants.HEIGHT*2/3, end_x=constants.WIDTH, end_y=constants.HEIGHT*2/3, color=constants.BORDER_COLOR, line_width=4)
+        arcade.draw_line(start_x=0, start_y=constants.HEIGHT/3, end_x=constants.WIDTH, end_y=constants.HEIGHT/3, color=arcade.color.BLACK, line_width=4)
+        arcade.draw_line(start_x=0, start_y=constants.HEIGHT*2/3, end_x=constants.WIDTH, end_y=constants.HEIGHT*2/3, color=arcade.color.BLACK, line_width=4)
 
         # 4. Draw game over text
         arcade.draw_text(text=self.game_over_text, start_x=constants.WIDTH/2, start_y=constants.HEIGHT/2, color=arcade.color.RED, font_size=64, anchor_x='center')
