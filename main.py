@@ -76,7 +76,7 @@ class App(arcade.Window):
 
         # 2. Draw "on hover" Cells
         for cell in self.cells:
-            cell.draw(mouse_x=self.mouse_x, mouse_y=self.mouse_y, game_over_text=self.game_over_text)
+            cell.draw(mouse_x=self.mouse_x, mouse_y=self.mouse_y, state=self.state)
 
         # 3. Draw cells
         # Draw border

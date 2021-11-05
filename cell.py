@@ -27,7 +27,7 @@ class Cell(object):
         # 5. Text value
         self.text = None
 
-    def draw(self, mouse_x, mouse_y, game_over_text):
+    def draw(self, mouse_x, mouse_y, state):
         """ Draw Cell """
 
         # 1. Draw text if there is a text
@@ -35,7 +35,7 @@ class Cell(object):
             arcade.draw_text(text=self.text, start_x=self.center_x, start_y=self.center_y, color=arcade.color.BLACK, font_size=76, anchor_x='center', anchor_y='center')
 
         # 2. Draw "on hover" cell
-        elif not game_over_text:
+        elif state == constants.STATE_PLAYER_MAKES_TURN:
             if self.center_x-self.width/2 < mouse_x < self.center_x + self.width/2 and\
                self.center_y-self.height/2 < mouse_y < self.center_y+self.height/2:
                 self.on_hover = True
