@@ -10,8 +10,12 @@ Go to repository folder and double-click on [main.py](main.py) file
 
 ## Ideas for improvements
 * "Restart game" button
-* Statistics (number of wins/draws/defeats)
-* Change game difficulty (easy/normal/hard)
+* Draw "winning line"
+* Delay between Player's and Bot's turn
 * Resize/fullscreen window
-* Dark color scheme
+* Allow Player to play for "O"
+* Statistics (number of wins/draws/defeats)
+* Improve Bot AI
+* Change game difficulty (easy/normal/hard)
 * 2-players game
+* Dark color scheme
