@@ -35,6 +35,32 @@ class App(arcade.Window):
         # 4. Game over text
         self.game_over_text = ''
 
+        # 5. Game state
+        self.state = constants.STATE_PLAYER_MAKES_TURN
+        self.frames_counter = 0
+
+    def on_update(self, delta_time):
+        """ Update """
+
+        # 1. Delay before Bot makes turn
+        if self.state == constants.STATE_WAITING_FOR_BOT_TO_TURN:
+            self.frames_counter += 1
+            if self.frames_counter > 50:
+                self.frames_counter = 0
+                self.state = constants.STATE_BOT_MAKES_TURN
+
+        # 2. Bot makes turn
+        elif self.state == constants.STATE_BOT_MAKES_TURN:
+
+            # Bot's turn
+            helpers.bot_makes_turn(self.cells)
+            self.state = constants.STATE_PLAYER_MAKES_TURN
+
+            # Check for bot's victory
+            if helpers.check_for_victory(self.cells, 'O'):
+                self.game_over_text = 'Bot win!'
+                self.state = constants.STATE_GAME_OVER
+
     def on_draw(self):
         """ Render the screen """
 
@@ -70,8 +96,8 @@ class App(arcade.Window):
     def on_mouse_press(self, x, y, button, key_modifiers):
         """ Called when the user presses a mouse button """
 
-        # 1. Handle mouse press only if game is not over yet
-        if not self.game_over_text:
+        # 1. Handle mouse press when it's a Player's turn
+        if self.state == constants.STATE_PLAYER_MAKES_TURN:
 
             # Handle click on cells
             for cell in self.cells:
@@ -82,20 +108,17 @@ class App(arcade.Window):
                     # Check for player's victory
                     if helpers.check_for_victory(self.cells, 'X'):
                         self.game_over_text = 'You win!'
+                        self.state = constants.STATE_GAME_OVER
                         break
 
                     # Check for draw
                     if helpers.check_for_draw(self.cells):
                         self.game_over_text = 'It\'s a draw'
+                        self.state = constants.STATE_GAME_OVER
                         break
 
-                    # Bot's turn
-                    helpers.bot_makes_turn(self.cells)
-
-                    # Check for bot's victory
-                    if helpers.check_for_victory(self.cells, 'O'):
-                        self.game_over_text = 'Bot win!'
-                        break
+                    # Change games state to "Waiting for Bot to turn"
+                    self.state = constants.STATE_WAITING_FOR_BOT_TO_TURN
 
                     break
 

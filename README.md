@@ -11,7 +11,8 @@ Go to repository folder and double-click on [main.py](main.py) file
 ## Ideas for improvements
 * "Restart game" button
 * Draw "winning line"
-* Delay between Player's and Bot's turn
+* ~~Delay between Player's and Bot's turn~~
+* Delay between Player's/Bot's action and "Game Over" text
 * Resize/fullscreen window
 * Allow Player to play for "O"
 * Statistics (number of wins/draws/defeats)
