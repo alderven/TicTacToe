@@ -12,7 +12,8 @@ Go to repository folder and double-click on [main.py](main.py) file
 * "Restart game" button
 * Draw "winning line"
 * ~~Delay between Player's and Bot's turn~~
-* Delay between Player's/Bot's action and "Game Over" text
+* ~~Delay between Player's/Bot's action and "Game Over" text~~
+* Add cell background flickering when Bot makes turn
 * Resize/fullscreen window
 * Allow Player to play for "O"
 * Statistics (number of wins/draws/defeats)

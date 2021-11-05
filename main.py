@@ -59,6 +59,13 @@ class App(arcade.Window):
             # Check for bot's victory
             if helpers.check_for_victory(self.cells, 'O'):
                 self.game_over_text = 'Bot win!'
+                self.state = constants.STATE_WAITING_FOR_GAME_OVER
+
+        # 3. Waiting for "Game Over" state
+        if self.state == constants.STATE_WAITING_FOR_GAME_OVER:
+            self.frames_counter += 1
+            if self.frames_counter > 20:
+                self.frames_counter = 0
                 self.state = constants.STATE_GAME_OVER
 
     def on_draw(self):
@@ -84,7 +91,8 @@ class App(arcade.Window):
         arcade.draw_line(start_x=0, start_y=constants.HEIGHT*2/3, end_x=constants.WIDTH, end_y=constants.HEIGHT*2/3, color=arcade.color.BLACK, line_width=4)
 
         # 4. Draw game over text
-        arcade.draw_text(text=self.game_over_text, start_x=constants.WIDTH/2, start_y=constants.HEIGHT/2, color=arcade.color.RED, font_size=64, anchor_x='center')
+        if self.state == constants.STATE_GAME_OVER:
+            arcade.draw_text(text=self.game_over_text, start_x=constants.WIDTH/2, start_y=constants.HEIGHT/2, color=arcade.color.RED, font_size=64, anchor_x='center')
 
     def on_mouse_motion(self, x, y, delta_x, delta_y):
         """ Called whenever the mouse moves """
@@ -108,13 +116,13 @@ class App(arcade.Window):
                     # Check for player's victory
                     if helpers.check_for_victory(self.cells, 'X'):
                         self.game_over_text = 'You win!'
-                        self.state = constants.STATE_GAME_OVER
+                        self.state = constants.STATE_WAITING_FOR_GAME_OVER
                         break
 
                     # Check for draw
                     if helpers.check_for_draw(self.cells):
                         self.game_over_text = 'It\'s a draw'
-                        self.state = constants.STATE_GAME_OVER
+                        self.state = constants.STATE_WAITING_FOR_GAME_OVER
                         break
 
                     # Change games state to "Waiting for Bot to turn"
