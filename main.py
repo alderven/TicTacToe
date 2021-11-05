@@ -8,6 +8,8 @@ from cell import Cell
 
 class App(arcade.Window):
     def __init__(self):
+        """ Initialize App """
+
         super().__init__(width=constants.WIDTH, height=constants.HEIGHT, title='Tic Tac Toe')
 
         # 1. Set background color
@@ -34,11 +36,12 @@ class App(arcade.Window):
         self.game_over_text = ''
 
     def on_draw(self):
+        """ Render the screen """
 
         # 1. Start render
         arcade.start_render()
 
-        # 1. Draw "on hover" Cells
+        # 2. Draw "on hover" Cells
         for cell in self.cells:
             cell.draw(mouse_x=self.mouse_x, mouse_y=self.mouse_y, game_over_text=self.game_over_text)
 
