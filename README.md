@@ -6,12 +6,12 @@
 3. Download and extract [current repository](https://github.com/alderven/TicTacToe/archive/refs/heads/master.zip)
 
 ## How to launch?
-Go to repository folder and double-click on `main.py` file
+Go to repository folder and double-click on [main.py](main.py) file
 
-## Ideas for improvement
-1. "Restart game" button
-2. Statistics (number of wins/draws/defeats)
-3. Change game difficulty (easy/normal/hard)
-4. Resize/fullscreen window
-5. Dark color scheme
-6. 2-players game
+## Ideas for improvements
+* "Restart game" button
+* Statistics (number of wins/draws/defeats)
+* Change game difficulty (easy/normal/hard)
+* Resize/fullscreen window
+* Dark color scheme
+* 2-players game
