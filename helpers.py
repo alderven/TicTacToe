@@ -41,7 +41,7 @@ def bot_makes_turn(cells):
     available_cells = [c.id for c in cells if not c.text]
     bot_turns = [c.id for c in cells if c.text == 'O']
 
-    # 1. If Bot didn't make turns yet - make turn into the center of game field or in the corners (if center is already occupied)
+    # 2. If Bot didn't make turns yet - make turn into the center of game field or in the corners (if center is already occupied)
     if not bot_turns:
         if 5 in available_cells:
             cells[4].text = 'O'  # Bot makes turn in the center of the screen
@@ -59,7 +59,7 @@ def bot_makes_turn(cells):
             cells[8].text = 'O'  # Bot makes turn in right lower corner
             return
 
-    # 2. Check what turn Bot should do in order to win
+    # 3. Check what turn Bot should do in order to win
     for i in range(len(cells)):
         if not cells[i].text:
             cells[i].text = 'O'  # make bot's turn
