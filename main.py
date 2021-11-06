@@ -34,7 +34,7 @@ class App(arcade.Window):
         self.frames_counter = 0
 
         # 7. "New game" button
-        button = arcade.gui.UIFlatButton(text='New game', width=110, height=40, style={'font_size': 10, 'font_color': arcade.color.BLACK, 'bg_color': arcade.color.LIGHT_GRAY, 'border_color_pressed': arcade.color.BLACK, 'border_width': 1, 'bg_color_pressed': arcade.color.GRAY})
+        button = arcade.gui.UIFlatButton(text='New game', width=110, height=40, style={'font_size': 10, 'font_color': arcade.color.BLACK, 'bg_color': arcade.color.LIGHT_GRAY, 'border_color': arcade.color.BLACK, 'border_width': 1, 'bg_color_pressed': arcade.color.GRAY})
         button.on_click = self.new_game_btn
         box = arcade.gui.UIBoxLayout()
         box.add(button.with_space_around(bottom=10))
@@ -136,13 +136,15 @@ class App(arcade.Window):
             arcade.draw_text(text=self.game_over_text, start_x=constants.GAME_FIELD_WIDTH/2, start_y=constants.GAME_FIELD_HEIGHT/2, color=arcade.color.RED, font_size=64, anchor_x='center')
 
         # 5. Draw game stat
-        arcade.draw_text(text=f'Win: {self.stats.win}, Draw: {self.stats.draw}, Loose: {self.stats.loose}', start_x=constants.GAME_FIELD_WIDTH / 2, start_y=14, color=arcade.color.RED, font_size=14, anchor_x='center')
+        arcade.draw_rectangle_filled(center_x=constants.GAME_FIELD_WIDTH/2, center_y=20, width=constants.WIDTH, height=40, color=arcade.color.WHITE_SMOKE)
+        arcade.draw_text(text=f'Win: {self.stats.win}, Draw: {self.stats.draw}, Loose: {self.stats.loose}', start_x=constants.GAME_FIELD_WIDTH/2, start_y=14, color=arcade.color.RED, font_size=14, anchor_x='center')
 
-        # 6. Draw "New game" button
-        self.manager.draw()
-
-        # 7. Draw "Whose turn" text
+        # 6. Draw "Whose turn" text
+        arcade.draw_rectangle_filled(center_x=constants.GAME_FIELD_WIDTH/2, center_y=constants.HEIGHT-20, width=constants.WIDTH, height=40, color=arcade.color.WHITE_SMOKE)
         arcade.draw_text(text=self.whose_turn_text, start_x=30, start_y=constants.HEIGHT-27, color=arcade.color.RED, font_size=14)
+
+        # 7. Draw "New game" button
+        self.manager.draw()
 
     def on_mouse_motion(self, x, y, delta_x, delta_y):
         """ Called whenever the mouse moves """
