@@ -1,6 +1,11 @@
 # Screen size
 WIDTH = 400
-HEIGHT = 360
+HEIGHT = 400
+
+# Game field start position and size
+GAME_FIELD_Y_START = 40
+GAME_FIELD_WIDTH = 400
+GAME_FIELD_HEIGHT = 360
 
 # Game states
 STATE_PLAYER_MAKES_TURN = 'STATE_PLAYER_MAKES_TURN'

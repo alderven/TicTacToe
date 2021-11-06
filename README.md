@@ -16,7 +16,8 @@ Go to repository folder and double-click on [main.py](main.py) file
 * Add cell background flickering when Bot makes turn
 * Resize/fullscreen window
 * Allow Player to play for "O"
-* Statistics (number of wins/draws/defeats)
+* ~~Statistics (number of wins/draws/defeats)~~
+* Update statistics simultaneously with game over text appearing
 * Improve Bot AI
 * Change game difficulty (easy/normal/hard)
 * 2-players game

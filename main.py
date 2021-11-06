@@ -4,6 +4,7 @@ import arcade.gui
 import helpers
 import constants
 from cell import Cell
+from stats import Stats
 
 
 class App(arcade.Window):
@@ -22,12 +23,12 @@ class App(arcade.Window):
         # 3. Create game Cells
         self.cells = []
         cell_id = 1
-        cell_width = constants.WIDTH/3
-        cell_height = constants.HEIGHT/3
+        cell_width = constants.GAME_FIELD_WIDTH/3
+        cell_height = constants.GAME_FIELD_HEIGHT/3
         for i in range(3):
             for j in range(3):
                 center_x = int(i * cell_width + cell_width/2)
-                center_y = int(j * cell_height + cell_height/2)
+                center_y = int(constants.GAME_FIELD_Y_START + j * cell_height + cell_height/2)
                 cell = Cell(cell_id, center_x, center_y)
                 self.cells.append(cell)
                 cell_id += 1
@@ -38,6 +39,9 @@ class App(arcade.Window):
         # 5. Game state
         self.state = constants.STATE_PLAYER_MAKES_TURN
         self.frames_counter = 0
+
+        # 6. Get statistics
+        self.stats = Stats()
 
     def on_update(self, delta_time):
         """ Update """
@@ -59,6 +63,7 @@ class App(arcade.Window):
             # Check for bot's victory
             if helpers.check_for_victory(self.cells, 'O'):
                 self.game_over_text = 'Bot win!'
+                self.stats.bot_win()
                 self.state = constants.STATE_WAITING_FOR_GAME_OVER
 
         # 3. Waiting for "Game Over" state
@@ -80,19 +85,22 @@ class App(arcade.Window):
 
         # 3. Draw cells
         # Draw border
-        arcade.draw_rectangle_outline(center_x=constants.WIDTH/2, center_y=constants.HEIGHT/2, width=constants.WIDTH, height=constants.HEIGHT, color=arcade.color.BLACK, border_width=8)
+        arcade.draw_rectangle_outline(center_x=constants.GAME_FIELD_WIDTH/2, center_y=constants.GAME_FIELD_Y_START+constants.GAME_FIELD_HEIGHT/2, width=constants.GAME_FIELD_WIDTH-4, height=constants.GAME_FIELD_HEIGHT-4, color=arcade.color.BLACK, border_width=4)
 
         # Draw vertical lines
-        arcade.draw_line(start_x=constants.WIDTH/3, start_y=0, end_x=constants.WIDTH/3, end_y=constants.HEIGHT, color=arcade.color.BLACK, line_width=4)
-        arcade.draw_line(start_x=constants.WIDTH*2/3, start_y=0, end_x=constants.WIDTH*2/3, end_y=constants.HEIGHT, color=arcade.color.BLACK, line_width=4)
+        arcade.draw_line(start_x=constants.GAME_FIELD_WIDTH/3, start_y=constants.GAME_FIELD_Y_START, end_x=constants.GAME_FIELD_WIDTH/3, end_y=constants.GAME_FIELD_Y_START+constants.GAME_FIELD_HEIGHT, color=arcade.color.BLACK, line_width=4)
+        arcade.draw_line(start_x=constants.GAME_FIELD_WIDTH*2/3, start_y=constants.GAME_FIELD_Y_START, end_x=constants.GAME_FIELD_WIDTH*2/3, end_y=constants.GAME_FIELD_Y_START+constants.GAME_FIELD_HEIGHT, color=arcade.color.BLACK, line_width=4)
 
         # Draw horizontal lines
-        arcade.draw_line(start_x=0, start_y=constants.HEIGHT/3, end_x=constants.WIDTH, end_y=constants.HEIGHT/3, color=arcade.color.BLACK, line_width=4)
-        arcade.draw_line(start_x=0, start_y=constants.HEIGHT*2/3, end_x=constants.WIDTH, end_y=constants.HEIGHT*2/3, color=arcade.color.BLACK, line_width=4)
+        arcade.draw_line(start_x=0, start_y=constants.GAME_FIELD_Y_START+constants.GAME_FIELD_HEIGHT/3, end_x=constants.GAME_FIELD_WIDTH, end_y=constants.GAME_FIELD_Y_START+constants.GAME_FIELD_HEIGHT/3, color=arcade.color.BLACK, line_width=4)
+        arcade.draw_line(start_x=0, start_y=constants.GAME_FIELD_Y_START+constants.GAME_FIELD_HEIGHT*2/3, end_x=constants.GAME_FIELD_WIDTH, end_y=constants.GAME_FIELD_Y_START+constants.GAME_FIELD_HEIGHT*2/3, color=arcade.color.BLACK, line_width=4)
 
         # 4. Draw game over text
         if self.state == constants.STATE_GAME_OVER:
-            arcade.draw_text(text=self.game_over_text, start_x=constants.WIDTH/2, start_y=constants.HEIGHT/2, color=arcade.color.RED, font_size=64, anchor_x='center')
+            arcade.draw_text(text=self.game_over_text, start_x=constants.GAME_FIELD_WIDTH/2, start_y=constants.GAME_FIELD_HEIGHT/2, color=arcade.color.RED, font_size=64, anchor_x='center')
+
+        # 5. Draw game stat
+        arcade.draw_text(text=f'Win: {self.stats.win}, Draw: {self.stats.draw}, Loose: {self.stats.loose}', start_x=constants.GAME_FIELD_WIDTH / 2, start_y=14, color=arcade.color.RED, font_size=14, anchor_x='center')
 
     def on_mouse_motion(self, x, y, delta_x, delta_y):
         """ Called whenever the mouse moves """
@@ -116,12 +124,14 @@ class App(arcade.Window):
                     # Check for player's victory
                     if helpers.check_for_victory(self.cells, 'X'):
                         self.game_over_text = 'You win!'
+                        self.stats.player_win()
                         self.state = constants.STATE_WAITING_FOR_GAME_OVER
                         break
 
                     # Check for draw
                     if helpers.check_for_draw(self.cells):
                         self.game_over_text = 'It\'s a draw'
+                        self.stats.its_a_draw()
                         self.state = constants.STATE_WAITING_FOR_GAME_OVER
                         break
 

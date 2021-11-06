@@ -18,8 +18,8 @@ class Cell(object):
         self.center_y = center_y
 
         # 3. Cell size
-        self.width = constants.WIDTH/3
-        self.height = constants.HEIGHT/3
+        self.width = constants.GAME_FIELD_WIDTH/3
+        self.height = constants.GAME_FIELD_HEIGHT/3
 
         # 4. "On hover" flag
         self.on_hover = False
