@@ -1,6 +1,6 @@
 # Screen size
 WIDTH = 400
-HEIGHT = 400
+HEIGHT = 440
 
 # Game field start position and size
 GAME_FIELD_Y_START = 40

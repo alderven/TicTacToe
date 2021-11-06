@@ -13,14 +13,45 @@ class App(arcade.Window):
 
         super().__init__(width=constants.WIDTH, height=constants.HEIGHT, title='Tic Tac Toe')
 
-        # 1. Set background color
+        # 1. Get statistics
+        self.stats = Stats()
+
+        # 2. Set background color
         arcade.set_background_color(arcade.color.WHITE)
 
-        # 2. Mouse position
+        # 3. Mouse position
         self.mouse_x = 0
         self.mouse_y = 0
 
-        # 3. Create game Cells
+        # 4. Game Cells
+        self.cells = []
+
+        # 5. Game over text
+        self.game_over_text = ''
+
+        # 6. Game state
+        self.state = constants.STATE_PLAYER_MAKES_TURN
+        self.frames_counter = 0
+
+        # 7. "New game" button
+        button = arcade.gui.UIFlatButton(text='New game', width=110, height=40, style={'font_size': 10, 'font_color': arcade.color.BLACK, 'bg_color': arcade.color.LIGHT_GRAY, 'border_color_pressed': arcade.color.BLACK, 'border_width': 1, 'bg_color_pressed': arcade.color.GRAY})
+        button.on_click = self.new_game_btn
+        box = arcade.gui.UIBoxLayout()
+        box.add(button.with_space_around(bottom=10))
+        self.manager = arcade.gui.UIManager()
+        self.manager.enable()
+        self.manager.add(arcade.gui.UIAnchorWidget(anchor_x='right', anchor_y='top', child=box))
+
+        # 8. "Whose turn" text
+        self.whose_turn_text = ''
+
+        # 8. Setup new game
+        self.setup()
+
+    def setup(self):
+        """ Setup new game """
+
+        # 1. Create game Cells
         self.cells = []
         cell_id = 1
         cell_width = constants.GAME_FIELD_WIDTH/3
@@ -33,15 +64,18 @@ class App(arcade.Window):
                 self.cells.append(cell)
                 cell_id += 1
 
-        # 4. Game over text
+        # 2. Game over text
         self.game_over_text = ''
 
-        # 5. Game state
+        # 3. Game state
         self.state = constants.STATE_PLAYER_MAKES_TURN
         self.frames_counter = 0
 
-        # 6. Get statistics
-        self.stats = Stats()
+        # 4. "Whose turn" text
+        self.whose_turn_text = 'Your turn [X]...'
+
+    def new_game_btn(self, event):
+        self.setup()
 
     def on_update(self, delta_time):
         """ Update """
@@ -59,6 +93,7 @@ class App(arcade.Window):
             # Bot's turn
             helpers.bot_makes_turn(self.cells)
             self.state = constants.STATE_PLAYER_MAKES_TURN
+            self.whose_turn_text = 'Your turn [X]...'
 
             # Check for bot's victory
             if helpers.check_for_victory(self.cells, 'O'):
@@ -68,6 +103,7 @@ class App(arcade.Window):
 
         # 3. Waiting for "Game Over" state
         if self.state == constants.STATE_WAITING_FOR_GAME_OVER:
+            self.whose_turn_text = ''
             self.frames_counter += 1
             if self.frames_counter > 20:
                 self.frames_counter = 0
@@ -101,6 +137,12 @@ class App(arcade.Window):
 
         # 5. Draw game stat
         arcade.draw_text(text=f'Win: {self.stats.win}, Draw: {self.stats.draw}, Loose: {self.stats.loose}', start_x=constants.GAME_FIELD_WIDTH / 2, start_y=14, color=arcade.color.RED, font_size=14, anchor_x='center')
+
+        # 6. Draw "New game" button
+        self.manager.draw()
+
+        # 7. Draw "Whose turn" text
+        arcade.draw_text(text=self.whose_turn_text, start_x=30, start_y=constants.HEIGHT-27, color=arcade.color.RED, font_size=14)
 
     def on_mouse_motion(self, x, y, delta_x, delta_y):
         """ Called whenever the mouse moves """
@@ -137,6 +179,7 @@ class App(arcade.Window):
 
                     # Change games state to "Waiting for Bot to turn"
                     self.state = constants.STATE_WAITING_FOR_BOT_TO_TURN
+                    self.whose_turn_text = 'Bot`s turn [O]...'
 
                     break
 
