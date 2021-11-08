@@ -50,7 +50,7 @@ def check_for_draw(cells):
     return not bool([c for c in cells if not c.text])
 
 
-def bot_makes_turn(cells, level='hard'):
+def bot_makes_turn(cells, level='normal'):
     """ Bot makes turn
     :param cells: list of cells
     :param level: AI level, can be easy|normal|hard

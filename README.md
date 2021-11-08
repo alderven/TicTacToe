@@ -9,16 +9,14 @@
 Go to repository folder and double-click on [main.py](main.py) file
 
 ## Ideas for improvements
+* Add "hard" game difficulty ("No chance to win")
+* Change game difficulty (easy/normal/hard)
+* Allow Player to play for "O"
+* 2-players game
+* Resize/fullscreen window
+* Dark color scheme
 * ~~"New game" button~~
 * ~~Draw "winning line"~~
 * ~~Delay between Player's and Bot's turn~~
 * ~~Delay between Player's/Bot's action and "Game Over" text~~
-* Add cell background flickering when Bot makes turn
-* Resize/fullscreen window
-* Allow Player to play for "O"
 * ~~Statistics (number of wins/draws/defeats)~~
-* Update statistics simultaneously with game over text appearing
-* Improve Bot AI
-* Change game difficulty (easy/normal/hard)
-* 2-players game
-* Dark color scheme
