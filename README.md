@@ -10,7 +10,7 @@ Go to repository folder and double-click on [main.py](main.py) file
 
 ## Ideas for improvements
 * ~~"New game" button~~
-* Draw "winning line"
+* ~~Draw "winning line"~~
 * ~~Delay between Player's and Bot's turn~~
 * ~~Delay between Player's/Bot's action and "Game Over" text~~
 * Add cell background flickering when Bot makes turn

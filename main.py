@@ -45,7 +45,10 @@ class App(arcade.Window):
         # 8. "Whose turn" text
         self.whose_turn_text = ''
 
-        # 8. Setup new game
+        # 9. "Winning line" coordinates
+        self.winning_line_coordinates = None
+
+        # 10. Setup new game
         self.setup()
 
     def setup(self):
@@ -74,6 +77,9 @@ class App(arcade.Window):
         # 4. "Whose turn" text
         self.whose_turn_text = 'Your turn [X]...'
 
+        # 5. "Winning line" coordinates
+        self.winning_line_coordinates = None
+
     def new_game_btn(self, event):
         self.setup()
 
@@ -96,7 +102,8 @@ class App(arcade.Window):
             self.whose_turn_text = 'Your turn [X]...'
 
             # Check for bot's victory
-            if helpers.check_for_victory(self.cells, 'O'):
+            self.winning_line_coordinates = helpers.check_for_victory(self.cells, 'O')
+            if self.winning_line_coordinates:
                 self.game_over_text = 'Bot win!'
                 self.stats.bot_win()
                 self.state = constants.STATE_WAITING_FOR_GAME_OVER
@@ -133,6 +140,12 @@ class App(arcade.Window):
 
         # 4. Draw game over text
         if self.state == constants.STATE_GAME_OVER:
+
+            # Draw "Winning line"
+            if self.winning_line_coordinates:
+                arcade.draw_line(start_x=self.winning_line_coordinates['start_x'], start_y=self.winning_line_coordinates['start_y'], end_x=self.winning_line_coordinates['end_x'], end_y=self.winning_line_coordinates['end_y'], color=arcade.color.BLACK, line_width=8)
+
+            # Draw game over text
             arcade.draw_text(text=self.game_over_text, start_x=constants.GAME_FIELD_WIDTH/2, start_y=constants.GAME_FIELD_HEIGHT/2, color=arcade.color.RED, font_size=64, anchor_x='center')
 
         # 5. Draw game stat
@@ -166,7 +179,8 @@ class App(arcade.Window):
                     cell.on_hover = False
 
                     # Check for player's victory
-                    if helpers.check_for_victory(self.cells, 'X'):
+                    self.winning_line_coordinates = helpers.check_for_victory(self.cells, 'X')
+                    if self.winning_line_coordinates:
                         self.game_over_text = 'You win!'
                         self.stats.player_win()
                         self.state = constants.STATE_WAITING_FOR_GAME_OVER
